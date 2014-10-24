@@ -1,0 +1,88 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+# Changes to be committed:
+#	deleted:    build/classes/.netbeans_automatic_build
+#	deleted:    build/classes/.netbeans_update_resources
+#	deleted:    build/classes/br/com/base/AtualizarFrequencia4.form
+#	deleted:    build/classes/br/com/base/ControledePresenca.form
+#	deleted:    build/classes/br/com/base/Evasao1.form
+#	deleted:    build/classes/br/com/base/Evasao2.form
+#	deleted:    build/classes/br/com/base/FrequenciaAluno.form
+#	deleted:    build/classes/br/com/base/FrequenciaMain.form
+#	deleted:    build/classes/br/com/base/FrequenciaTurma.form
+#	deleted:    build/classes/br/com/base/MatriculaConf.form
+#	deleted:    build/classes/br/com/base/MatriculaConsulta.form
+#	deleted:    build/classes/br/com/base/MatriculaMain.form
+#	deleted:    build/classes/br/com/base/MatriculaMatricular.form
+#	deleted:    build/classes/br/com/base/TelaPrincipal.form
+#	deleted:    build/classes/br/com/base/Turmas.form
+#	deleted:    build/classes/sistema/AtualizarFrequencia4$1.class
+#	deleted:    build/classes/sistema/AtualizarFrequencia4$2.class
+#	deleted:    build/classes/sistema/AtualizarFrequencia4.class
+#	deleted:    build/classes/sistema/AtualizarFrequencia4.form
+#	deleted:    build/classes/sistema/ControledePresenca$1.class
+#	deleted:    build/classes/sistema/ControledePresenca$2.class
+#	deleted:    build/classes/sistema/ControledePresenca.class
+#	deleted:    build/classes/sistema/ControledePresenca.form
+#	deleted:    build/classes/sistema/Evasao1$1.class
+#	deleted:    build/classes/sistema/Evasao1$2.class
+#	deleted:    build/classes/sistema/Evasao1$3.class
+#	deleted:    build/classes/sistema/Evasao1.class
+#	deleted:    build/classes/sistema/Evasao1.form
+#	deleted:    build/classes/sistema/Evasao2$1.class
+#	deleted:    build/classes/sistema/Evasao2$2.class
+#	deleted:    build/classes/sistema/Evasao2.class
+#	deleted:    build/classes/sistema/Evasao2.form
+#	deleted:    build/classes/sistema/FrequenciaAluno$1.class
+#	deleted:    build/classes/sistema/FrequenciaAluno$2.class
+#	deleted:    build/classes/sistema/FrequenciaAluno.class
+#	deleted:    build/classes/sistema/FrequenciaAluno.form
+#	deleted:    build/classes/sistema/FrequenciaMain$1.class
+#	deleted:    build/classes/sistema/FrequenciaMain$2.class
+#	deleted:    build/classes/sistema/FrequenciaMain.class
+#	deleted:    build/classes/sistema/FrequenciaMain.form
+#	deleted:    build/classes/sistema/FrequenciaTurma$1.class
+#	deleted:    build/classes/sistema/FrequenciaTurma$2.class
+#	deleted:    build/classes/sistema/FrequenciaTurma$3.class
+#	deleted:    build/classes/sistema/FrequenciaTurma.class
+#	deleted:    build/classes/sistema/FrequenciaTurma.form
+#	deleted:    build/classes/sistema/MatriculaConf$1.class
+#	deleted:    build/classes/sistema/MatriculaConf$2.class
+#	deleted:    build/classes/sistema/MatriculaConf$3.class
+#	deleted:    build/classes/sistema/MatriculaConf.class
+#	deleted:    build/classes/sistema/MatriculaConf.form
+#	deleted:    build/classes/sistema/MatriculaConsulta$1.class
+#	deleted:    build/classes/sistema/MatriculaConsulta$2.class
+#	deleted:    build/classes/sistema/MatriculaConsulta.class
+#	deleted:    build/classes/sistema/MatriculaConsulta.form
+#	deleted:    build/classes/sistema/MatriculaMain$1.class
+#	deleted:    build/classes/sistema/MatriculaMain$2.class
+#	deleted:    build/classes/sistema/MatriculaMain$3.class
+#	deleted:    build/classes/sistema/MatriculaMain$4.class
+#	deleted:    build/classes/sistema/MatriculaMain$5.class
+#	deleted:    build/classes/sistema/MatriculaMain.class
+#	deleted:    build/classes/sistema/MatriculaMain.form
+#	deleted:    build/classes/sistema/MatriculaMatricular$1.class
+#	deleted:    build/classes/sistema/MatriculaMatricular$2.class
+#	deleted:    build/classes/sistema/MatriculaMatricular.class
+#	deleted:    build/classes/sistema/MatriculaMatricular.form
+#	deleted:    build/classes/sistema/Principal.class
+#	deleted:    build/classes/sistema/TelaPrincipal$1.class
+#	deleted:    build/classes/sistema/TelaPrincipal$2.class
+#	deleted:    build/classes/sistema/TelaPrincipal$3.class
+#	deleted:    build/classes/sistema/TelaPrincipal$4.class
+#	deleted:    build/classes/sistema/TelaPrincipal$5.class
+#	deleted:    build/classes/sistema/TelaPrincipal$6.class
+#	deleted:    build/classes/sistema/TelaPrincipal.class
+#	deleted:    build/classes/sistema/TelaPrincipal.form
+#	deleted:    build/classes/sistema/Turmas$1.class
+#	deleted:    build/classes/sistema/Turmas$2.class
+#	deleted:    build/classes/sistema/Turmas.class
+#	deleted:    build/classes/sistema/Turmas.form
+#
+

@@ -6,6 +6,13 @@
 
 package br.com.base;
 
+import br.com.factory.modelo.Aluno;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Luana
@@ -62,7 +69,7 @@ public class MatriculaMatricular extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,7 +127,12 @@ public class MatriculaMatricular extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel16.setText("Matricular");
 
-        jButton1.setText("Enviar");
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,7 +218,7 @@ public class MatriculaMatricular extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(172, 172, 172)
-                .addComponent(jButton1)
+                .addComponent(btnEnviar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -274,7 +286,7 @@ public class MatriculaMatricular extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(txtUniversidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnEnviar)
                 .addContainerGap())
         );
 
@@ -286,6 +298,33 @@ public class MatriculaMatricular extends javax.swing.JFrame {
         this.dispose();
         new TelaPrincipal().setVisible(true);
     }//GEN-LAST:event_lbl_menu1MouseClicked
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        // TODO add your handling code here:
+        
+        //cria objeto Usuário, que depois vai mudar pra ALUNO*
+        Aluno aluno = new Aluno();
+        aluno.setNome(txtNome.getText());
+        aluno.setEmail(txtEmail.getText());
+        aluno.setTelefone(txtTelefone.getText());
+        
+        //cria variável pra formatar datas de dia-mes-ano
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy"); 
+        //inicializa variável de Data estilo ano-mes-dia
+        java.sql.Date data = Date.valueOf("");
+        
+        //tenta converter as datas
+        try {
+            data = new java.sql.Date(format.parse(txtNascimento.getText()).getTime());
+        } catch (ParseException ex) {
+            Logger.getLogger(MatriculaMatricular.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //passa a nova variavel do tipo sql.Date pro objeto Usuario*
+        aluno.setDataNascimento(data);
+        
+        
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,8 +362,8 @@ public class MatriculaMatricular extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEnviar;
     private javax.swing.ButtonGroup grupoCor;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
