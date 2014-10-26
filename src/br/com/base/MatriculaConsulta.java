@@ -56,7 +56,7 @@ public class MatriculaConsulta extends javax.swing.JFrame {
         jButton2.setText("Alunos com documentos faltando");
 
         jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton3.setText("Alunos que confirmaram presença");
+        jButton3.setText("Alunos que não confirmaram presença");
 
         lbl_menu1.setForeground(new java.awt.Color(0, 0, 204));
         lbl_menu1.setText("Voltar ao Menu");
