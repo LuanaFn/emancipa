@@ -5,8 +5,9 @@
  */
 package br.com.base;
 
-import br.com.factory.modelo.Aluno;
+import br.com.factory.modelo.AlunoDAO;
 import br.com.factory.modelo.JDBCInsere;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import jxl.read.biff.BiffException;
 
 /**
@@ -24,32 +26,7 @@ import jxl.read.biff.BiffException;
  */
 public class MatriculaConf extends javax.swing.JFrame {
 
-    //método que importa inscritos
-    private void importaInscritos() throws IOException, BiffException, SQLException {
-        String arquivo = "";
-
-        //abre a caixa de diálogo e pega o nome e o caminho do arquivo desejado
-        int returnVal = dlgArquivoInscritos.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = dlgArquivoInscritos.getSelectedFile();
-            arquivo = file.getAbsolutePath();
-        }
-
-        //se a variavel arquivo não estiver vazia, ela é utilizada como parametro
-        if (!"".equals(arquivo)) {
-
-            //importa lista de alunos
-            List<Aluno> alunos = new ArrayList<>();
-            alunos = Aluno.getImportacao(arquivo);
-
-            //insere os alunos listados
-            for (int i = 0; i <= alunos.size(); i++) {
-                JDBCInsere.inserir(alunos.get(i));
-            }
-        }
-        
-        txtProcura.setText(arquivo);
-    }
+    DefaultTableModel tblConfirma = new DefaultTableModel();
 
     /**
      * Creates new form Matricula3
@@ -77,6 +54,8 @@ public class MatriculaConf extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lbl_menu1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         dlgArquivoInscritos.setDialogTitle("Importar inscritos");
         dlgArquivoInscritos.setFileFilter(new FileNameExtensionFilter("Pasta de Trabalho do Excel 97-2003", new String[]{"xls"}));
@@ -87,6 +66,11 @@ public class MatriculaConf extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnImportar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnImportar.setText("Importar inscritos");
@@ -134,61 +118,72 @@ public class MatriculaConf extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setModel(tblConfirma);
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lbl_menu1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jCheckBox1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCheckBox2))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(152, 152, 152)
+                                .addContainerGap()
+                                .addComponent(btnImportar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(249, 249, 249)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnImportar)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jCheckBox1)
-                                        .addGap(63, 63, 63)
-                                        .addComponent(jCheckBox2))
-                                    .addComponent(jLabel2))))
-                        .addGap(0, 7, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lbl_menu1)))
+                                .addGap(231, 231, 231)
+                                .addComponent(jLabel2)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(161, 161, 161)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(410, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(lbl_menu1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(btnImportar)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCheckBox1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -201,7 +196,7 @@ public class MatriculaConf extends javax.swing.JFrame {
     private void lbl_menu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_menu1MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new TelaPrincipal().setVisible(true);
+        new Menu().setVisible(true);
     }//GEN-LAST:event_lbl_menu1MouseClicked
 
 
@@ -214,16 +209,72 @@ public class MatriculaConf extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImportarMouseClicked
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
-        try {
-            importaInscritos();
-        } catch (IOException ex) {
-            Logger.getLogger(MatriculaConf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (BiffException ex) {
-            Logger.getLogger(MatriculaConf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MatriculaConf.class.getName()).log(Level.SEVERE, null, ex);
+        //A importação começa aqui
+        String arquivo = "";
+
+        //abre a caixa de diálogo e pega o nome e o caminho do arquivo desejado
+        int returnVal = dlgArquivoInscritos.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = dlgArquivoInscritos.getSelectedFile();
+            arquivo = file.getAbsolutePath();
         }
+
+        //se a variavel arquivo não estiver vazia, ela é utilizada como parametro
+        if (!"".equals(arquivo)) {
+
+            //importa lista de alunos
+            List<AlunoDAO> alunos = new ArrayList<>();
+            try {
+                alunos = AlunoDAO.getImportacao(arquivo);
+            } catch (IOException ex) {
+                Logger.getLogger(MatriculaConf.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BiffException ex) {
+                Logger.getLogger(MatriculaConf.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //insere os alunos listados
+            int nAlunos = alunos.size();
+            for (int i = 0; i < nAlunos; i++) {
+                try {
+                    JDBCInsere.inserirAluno(alunos.get(i));
+                } catch (SQLException ex) {
+                    Logger.getLogger(MatriculaConf.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            //adicionar o aluno importado para a tabela
+            for (int i = 0; i < nAlunos; i++){
+                tblConfirma.addRow(new String[1]); //adiciona linhas
+                //preenche as linhas
+                tblConfirma.setValueAt(String.valueOf(i), i, 0);
+                tblConfirma.setValueAt(alunos.get(i).getNome(), i, 1);
+                tblConfirma.setValueAt(alunos.get(i).getDataNascimento(), i, 2);
+                tblConfirma.setValueAt(alunos.get(i).getEmail(), i, 3);
+                tblConfirma.setValueAt(alunos.get(i).getEndereco(), i, 4);
+                tblConfirma.setValueAt(alunos.get(i).getBairro(), i, 5);
+                tblConfirma.setValueAt(alunos.get(i).getCidade(), i, 6);
+                tblConfirma.setValueAt(alunos.get(i).getCelular(), i, 7);
+                tblConfirma.setValueAt(alunos.get(i).getTelefone(), i, 8);
+                tblConfirma.setValueAt(alunos.get(i).getConclusaoEM(), i, 9);
+                tblConfirma.setValueAt(alunos.get(i).getEscola(), i, 10);
+                tblConfirma.setValueAt(alunos.get(i).getCor(), i, 11);
+                tblConfirma.setValueAt(alunos.get(i).getGenero(), i, 12);
+                tblConfirma.setValueAt(alunos.get(i).getRg(), i, 13);
+            }
+            
+        }
+
     }//GEN-LAST:event_btnImportarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        String[] cab = {"ID", "Nome", "Nascimento", "E-mail", "Endereço",
+            "Bairro", "Cidade", "Celular", "Telefone", "Ano de formatura",
+            "Escola", "Cor", "Sexo", "RG"};
+        tblConfirma.setColumnIdentifiers(cab);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.gray);
+        jTable1.setBackground(Color.green);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -270,6 +321,8 @@ public class MatriculaConf extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_menu1;
     private javax.swing.JTextField txtProcura;
     // End of variables declaration//GEN-END:variables
