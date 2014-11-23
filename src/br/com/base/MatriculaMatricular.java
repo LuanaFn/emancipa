@@ -5,7 +5,7 @@
  */
 package br.com.base;
 
-import br.com.factory.modelo.Aluno;
+import br.com.factory.modelo.AlunoDAO;
 import br.com.factory.modelo.JDBCInsere;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
@@ -333,13 +333,13 @@ public class MatriculaMatricular extends javax.swing.JFrame {
     private void lbl_menu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_menu1MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new TelaPrincipal().setVisible(true);
+        new Menu().setVisible(true);
     }//GEN-LAST:event_lbl_menu1MouseClicked
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
    
-        //cria objeto Aluno
-        Aluno aluno = new Aluno();
+        //cria objeto AlunoDAO
+        AlunoDAO aluno = new AlunoDAO();
         aluno.setNome(txtNome.getText());
         aluno.setEmail(txtEmail.getText());
         aluno.setEndereco(txtEndereco.getText());
@@ -355,14 +355,14 @@ public class MatriculaMatricular extends javax.swing.JFrame {
         aluno.setUniversidade(txtUniversidade.getText());
         
         //converte a data de String para sql.Date
-        java.sql.Date data = Aluno.strParaDate(txtNascimento.getText());
+        java.sql.Date data = AlunoDAO.strParaDate(txtNascimento.getText());
 
-        //passa a nova variavel do tipo sql.Date pro objeto Aluno
+        //passa a nova variavel do tipo sql.Date pro objeto AlunoDAO
         aluno.setDataNascimento(data);
         
-        //tenta inserir o Aluno no banco de dados
+        //tenta inserirAluno o AlunoDAO no banco de dados
         try {
-            JDBCInsere.inserir(aluno);
+            JDBCInsere.inserirAluno(aluno);
         } catch (SQLException ex) {
             Logger.getLogger(MatriculaMatricular.class.getName()).log(Level.SEVERE, null, ex);
         }

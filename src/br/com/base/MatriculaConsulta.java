@@ -117,7 +117,7 @@ public class MatriculaConsulta extends javax.swing.JFrame {
     private void lbl_menu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_menu1MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new TelaPrincipal().setVisible(true);
+        new Menu().setVisible(true);
     }//GEN-LAST:event_lbl_menu1MouseClicked
 
     /**

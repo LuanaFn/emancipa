@@ -27,15 +27,46 @@ import jxl.read.biff.BiffException;
 
 /**
  *
- * @author Luana
+ * Classe com os detalhes dos alunos que
+ * se matricularam ou apenas se inscreveram,
+ * independentemente de terem confirmado presença ou não,
+ * ou de ainda estudarem
  */
-public class Aluno {
+public class AlunoDAO {
 
     private int id;
     private String nome, cpf, email, endereco, bairro,
             cidade, celular, telefone, conclusaoEM, escola, cor,
             genero, rg, universidade, curso;
+    private Date dataNascimento;
+    private boolean ativo = false; //se o aluno frequenta as aulas. Fica true quando confirma presença
+    private boolean aprovado = false; //se ele passou na faculdade
+    private boolean desistente = false; //se desistiu do curso
 
+    public boolean isDesistente() {
+        return desistente;
+    }
+
+    public void setDesistente(boolean desistente) {
+        this.desistente = desistente;
+    }
+
+    public boolean isAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(boolean aprovado) {
+        this.aprovado = aprovado;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+    
     public String getCurso() {
         return curso;
     }
@@ -43,7 +74,6 @@ public class Aluno {
     public void setCurso(String curso) {
         this.curso = curso;
     }
-    private Date dataNascimento;
 
     public String getEndereco() {
         return endereco;
@@ -173,17 +203,17 @@ public class Aluno {
         this.dataNascimento = dataNascimento;
     }
 
-    public List<Aluno> getLista(String select) {
+    public List<AlunoDAO> getLista(String select) {
         Connection con = null;
         try {
             con = ConexaoMySQL.getConexaoMySQL();
-            List<Aluno> alunos = new ArrayList<Aluno>();
+            List<AlunoDAO> alunos = new ArrayList<AlunoDAO>();
             PreparedStatement stmt = con.prepareStatement(select);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // criando o objeto Aluno*
-                Aluno aluno = new Aluno();
+                // criando o objeto AlunoDAO*
+                AlunoDAO aluno = new AlunoDAO();
                 aluno.setId(rs.getInt("id"));
                 aluno.setNome(rs.getString("nome"));
                 aluno.setCpf(rs.getString("cpf"));
@@ -213,11 +243,11 @@ public class Aluno {
     }
 
     //método que importa um arquivo do Excel de inscritos que vem do site
-    //retorna uma lista de objetos do tipo Aluno com todos os inscritos
-    public static List<Aluno> getImportacao(String arquivo) throws IOException, BiffException {
+    //retorna uma lista de objetos do tipo AlunoDAO com todos os inscritos
+    public static List<AlunoDAO> getImportacao(String arquivo) throws IOException, BiffException {
 
         //cria lista de Alunos
-        List<Aluno> alunos = new ArrayList<>();
+        List<AlunoDAO> alunos = new ArrayList<>();
 
         //abre o arquivo Excel que foi selecionado pelo usuário
         Workbook workbook = Workbook.getWorkbook(new File(arquivo));
@@ -301,8 +331,8 @@ public class Aluno {
                 }
             }
 
-            // criando o objeto Aluno*
-            Aluno aluno = new Aluno();
+            // criando o objeto AlunoDAO*
+            AlunoDAO aluno = new AlunoDAO();
             aluno.setNome(enome);
             aluno.setRg(erg);
             aluno.setEndereco(eendereco);
@@ -316,7 +346,7 @@ public class Aluno {
             aluno.setCor(ecor);
             aluno.setGenero(egenero);
             aluno.setUniversidade(euniversidade);
-            aluno.setDataNascimento(Aluno.strParaDate(enascimento));
+            aluno.setDataNascimento(AlunoDAO.strParaDate(enascimento));
             aluno.setCurso(ecurso);
             
             alunos.add(aluno);
@@ -340,6 +370,18 @@ public class Aluno {
         } catch (ParseException ex) {
             Logger.getLogger(MatriculaMatricular.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        //retorna a data convertida
+        return data;
+    }
+    
+    //converte sql.Date em String
+    public static String dateParaStr(Date dateData){
+        //cria variável pra formatar datas de dia-mes-ano
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+ 
+        //tenta converter a data
+        String data = format.format(dateData);
 
         //retorna a data convertida
         return data;

@@ -124,7 +124,7 @@ public class FrequenciaMain extends javax.swing.JFrame {
     private void lbl_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_menuMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new TelaPrincipal().setVisible(true);
+        new Menu().setVisible(true);
     }//GEN-LAST:event_lbl_menuMouseClicked
 
     /**
